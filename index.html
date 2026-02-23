@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project Homepage Roblox</title>
+  <meta name="color-scheme" content="dark only">
+  <style>
+    :root{
+      --bg-0:#0b0f14;
+      --bg-1:#10161f;
+      --bg-2:#141b25;
+      --text:#e8eef6;
+      --muted:#a7b4c8;
+      --primary:#a200ff;
+      --radius:14px;
+      --glow:#66e1ff88;
+      --shadow:0 8px 24px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.04);
+      --blur:10px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Poppins, Orbitron, system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 80% 10%, #1b2331 0%, transparent 60%) , linear-gradient(120deg, var(--bg-0), var(--bg-1) 55%, var(--bg-2));
+      min-height:100dvh;
+      position:relative;
+      overflow-x:hidden;
+    }
+    .bg-gradient{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      background: radial-gradient(800px 800px at 10% 20%, #142033 0%, transparent 60%), linear-gradient(160deg, #0b0f14, #0e141c 45%, #101722 85%);
+      animation:floatGrad 18s linear infinite;
+      opacity:.9;
+      will-change:background-position;
+    }
+    @keyframes floatGrad{
+      0%{background-position:0% 0%, 0% 0%}
+      50%{background-position:50% 20%, 20% 50%}
+      100%{background-position:0% 0%, 0% 0%}
+    }
+    .vignette{
+      position:fixed;
+      inset:0;
+      z-index:-1;
+      pointer-events:none;
+      background:
+        radial-gradient(80% 60% at 50% 0%, transparent 0%, rgba(0,0,0,.25) 80%),
+        radial-gradient(120% 100% at 50% 110%, rgba(0,0,0,.55) 10%, rgba(0,0,0,.75) 70%);
+    }
+    #bg-particles{
+      position:fixed;
+      inset:0;
+      z-index:-3;
+      opacity:.45;
+      filter:blur(.2px) saturate(1.05);
+    }
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:20;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 24px;
+      background:linear-gradient(180deg, rgba(10,14,20,.7), rgba(10,14,20,.35) 60%, transparent);
+      backdrop-filter:blur(var(--blur));
+      -webkit-backdrop-filter:blur(var(--blur));
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .brand{
+      letter-spacing:.5px;
+      font-weight:700;
+      font-size:18px;
+      color:var(--text);
+    }
+    .brand span{
+      color:var(--primary);
+      text-shadow:0 0 18px var(--glow);
+    }
+    .nav a{
+      color:var(--muted);
+      text-decoration:none;
+      margin-left:16px;
+      font-weight:600;
+      padding:8px 12px;
+      border-radius:10px;
+      transition:.25s ease;
+    }
+    .nav a:hover{
+      color:var(--text);
+      background:rgba(255,255,255,.06);
+      box-shadow:0 0 0 1px rgba(255,255,255,.08) inset, 0 8px 18px rgba(0,0,0,.35);
+    }
+    .nav a.active{
+      color:var(--primary);
+      background:rgba(110,231,255,.08);
+      box-shadow:0 0 0 1px rgba(110,231,255,.35) inset;
+    }
+    .hero{
+      padding:72px 24px 24px;
+      max-width:1200px;
+      margin:0 auto;
+      text-align:center;
+    }
+    .hero h1{
+      margin:24px auto 12px;
+      font-size:clamp(28px, 5vw, 48px);
+      line-height:1.1;
+      font-weight:800;
+      letter-spacing:.5px;
+      color:var(--text);
+      text-shadow:0 0 22px var(--glow), 0 0 2px rgba(255,255,255,.2);
+    }
+    .hero p{
+      margin:0 auto;
+      max-width:720px;
+      color:var(--muted);
+      font-size:clamp(14px, 2.2vw, 18px);
+    }
+    .games{
+      max-width:1200px;
+      margin:36px auto 64px;
+      padding:0 24px;
+    }
+    .section-title{
+      font-size:22px;
+      margin:8px 0 18px;
+      color:var(--text);
+      letter-spacing:.3px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(1, minmax(0,1fr));
+      gap:18px;
+    }
+    @media (min-width:560px){ .grid{ grid-template-columns:repeat(2, 1fr) } }
+    @media (min-width:840px){ .grid{ grid-template-columns:repeat(3, 1fr) } }
+    @media (min-width:1140px){ .grid{ grid-template-columns:repeat(4, 1fr) } }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.06);
+      overflow:hidden;
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      transform:translateZ(0);
+    }
+    .card:hover{
+      transform:scale(1.05);
+      box-shadow:0 10px 28px rgba(0, 231, 200, .15), 0 18px 40px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.08);
+      border-color:rgba(0,231,200,.35);
+    }
+    .thumb{
+      width:100%;
+      height:auto;
+      display:block;
+      aspect-ratio:16/9;
+      background:#0f1520;
+    }
+    .content{padding:14px}
+    /* Letakkan tombol di kiri bawah area konten kartu */
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      min-height:140px;
+    }
+    .title{
+      font-weight:700;
+      font-size:16px;
+      margin:0 0 6px;
+      color:var(--text);
+    }
+    .desc{
+      margin:0 0 8px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.4;
+      min-height:40px;
+      flex:1 1 auto;
+    }
+    .btn{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:12px;
+      background:linear-gradient(135deg, rgba(110,231,255,.18), rgba(167,139,250,.18));
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--text);
+      font-weight:700;
+      text-decoration:none;
+      letter-spacing:.4px;
+      transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+      box-shadow:0 6px 18px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .content .btn{ align-self:flex-start; margin-top:auto; }
+    .btn:hover{
+      transform:translateY(-1px);
+      background:linear-gradient(135deg, rgba(110,231,255,.28), rgba(167,139,250,.28));
+      box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 24px rgba(102,225,255,.25);
+    }
+    .footer{
+      padding:32px 24px 48px;
+      text-align:center;
+      color:var(--muted);
+      border-top:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg, transparent, rgba(255,255,255,.02));
+    }
+    /* Modal Iklan */
+    .modal{
+      position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+      padding:24px; z-index:50; visibility:hidden; opacity:0; pointer-events:none;
+      transition:opacity .25s ease, visibility .25s ease;
+    }
+    .modal[aria-hidden="false"]{visibility:visible; opacity:1; pointer-events:auto;}
+    .modal-backdrop{
+      position:absolute; inset:0; background:rgba(3,8,14,.6); backdrop-filter:blur(var(--blur));
+      -webkit-backdrop-filter:blur(var(--blur));
+    }
+    .modal-card{
+      position:relative; max-width:860px; width:100%; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow); border-radius:var(--radius);
+      padding:18px; transform:scale(.96); transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .modal[aria-hidden="false"] .modal-card{transform:scale(1);}
+    .modal-card h3{margin:4px 0 6px; font-size:20px;}
+    .modal-sub{margin:0 0 12px; color:var(--muted); font-size:14px;}
+    .modal-close{
+      position:absolute; top:10px; right:10px; width:36px; height:36px; border-radius:10px;
+      border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--text);
+      font-size:20px; line-height:1; cursor:pointer; transition:background .2s ease, transform .2s ease;
+    }
+    .modal-close:hover{background:rgba(255,255,255,.08); transform:translateY(-1px);}
+    .modal-grid{
+      display:grid; grid-template-columns:repeat(1, minmax(0,1fr)); gap:12px; margin:10px 0 6px;
+    }
+    @media (min-width:700px){ .modal-grid{ grid-template-columns:repeat(3, 1fr) } }
+    .ad-card{
+      display:flex; flex-direction:column; gap:10px; background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:10px; box-shadow:var(--shadow);
+      transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .ad-card:hover{ transform:translateY(-2px); border-color:rgba(0,231,200,.35); box-shadow:0 10px 24px rgba(0,0,0,.45), 0 0 24px rgba(102,225,255,.18); }
+    .ad-thumb{ width:100%; aspect-ratio:16/9; border-radius:8px; display:block; background:#0f1520; }
+    .ad-title{ margin:0; font-size:16px; font-weight:700; }
+    .ad-desc{ margin:0; color:var(--muted); font-size:13px; min-height:36px; }
+    .modal-opt{ display:flex; align-items:center; gap:8px; margin-top:8px; color:var(--muted); font-size:13px; }
+    @media (prefers-reduced-motion:reduce){
+      .bg-gradient{animation:none}
+    }
+    .info{
+      max-width:1200px;
+      margin:24px auto 48px;
+      padding:0 24px;
+      color:var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="bg-particles" aria-hidden="true"></canvas>
+  <div class="bg-gradient"></div>
+  <div class="vignette"></div>
+  <header class="nav">
+    <div class="brand"><span>InforRoblox</span></div>
+    <nav>
+      <a href="#top">Home</a>
+      <a href="#games">Games</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <section class="hero" id="top">
+    <h1>Project Homepage Roblox</h1>
+    <p>Halaman independen bertema gelap, menampilkan kumpulan game populer dalam tata letak grid responsif.</p>
+  </section>
+  <main class="games" id="games">
+    <h2 class="section-title">Game Populer</h2>
+    <div class="grid">
+      <article class="card">
+        <img class="thumb" alt="Brookhaven RP thumbnail" src="brookhaven.jpeg">
+        <div class="content">
+          <h3 class="title">Brookhaven RP</h3>
+          <p class="desc">Roleplay kota modern dengan kebebasan beraktivitas dan bertemu teman.</p>
+          <a class="btn" href="https://www.roblox.com/games/4924922222/Brookhaven-RP" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Blox Fruits thumbnail" src="bloxfruit.jpeg">
+        <div class="content">
+          <h3 class="title">Blox Fruits</h3>
+          <p class="desc">Jelajah lautan, kuasai buah iblis, dan tingkatkan kemampuan bertarung.</p>
+          <a class="btn" href="https://www.roblox.com/games/2753915549/Blox-Fruits" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Adopt Me! thumbnail" src="adoptme.jpeg">
+        <div class="content">
+          <h3 class="title">Adopt Me!</h3>
+          <p class="desc">Adopsi hewan lucu, dekorasi rumah impian, dan bermain bersama teman.</p>
+          <a class="btn" href="https://www.roblox.com/games/920587237/Adopt-Me" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Tower of Hell thumbnail" src="toh.jpeg">
+        <div class="content">
+          <h3 class="title">Tower of Hell</h3>
+          <p class="desc">Parkour tanpa checkpoint, uji kelincahan untuk menaklukkan menara.</p>
+          <a class="btn" href="https://www.roblox.com/games/1962086868/Tower-of-Hell" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Murder Mystery 2 thumbnail" src="mm2.jpeg">
+        <div class="content">
+          <h3 class="title">Murder Mystery 2</h3>
+          <p class="desc">Identifikasi pelaku, selamatkan diri, atau incar target secara cerdik.</p>
+          <a class="btn" href="https://www.roblox.com/games/142823291/Murder-Mystery-2" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Welcome to Bloxburg thumbnail" src="bloxburg.jpeg">
+        <div class="content">
+          <h3 class="title">Welcome to Bloxburg</h3>
+          <p class="desc">Bangun rumah, bekerja, dan jalani kehidupan virtual di kota Bloxburg.</p>
+          <a class="btn" href="https://www.roblox.com/games/185655149/Welcome-to-Bloxburg" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="MeepCity thumbnail" src="meepcity.jpeg">
+        <div class="content">
+          <h3 class="title">MeepCity</h3>
+          <p class="desc">Sosialisasi, memancing, dan kustomisasi rumah dengan gaya santai.</p>
+          <a class="btn" href="https://www.roblox.com/games/370731277/MeepCity" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Pet Simulator 99 thumbnail" src="petsim99.jpeg">
+        <div class="content">
+          <h3 class="title">Pet Simulator 99</h3>
+          <p class="desc">Kumpulkan hewan, buka dunia baru, dan tingkatkan koleksi langka.</p>
+          <a class="btn" href="https://www.roblox.com/games/8737899170/Pet-Simulator-99" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="BedWars thumbnail" src="bedwars.jpeg">
+        <div class="content">
+          <h3 class="title">BedWars</h3>
+          <p class="desc">Lindungi kasur tim, hancurkan musuh, dan bangun strategi kemenangan.</p>
+          <a class="btn" href="https://www.roblox.com/games/6872265039/BedWars" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Arsenal thumbnail" src="arsenal.jpeg">
+        <div class="content">
+          <h3 class="title">Arsenal</h3>
+          <p class="desc">FPS cepat dengan rotasi senjata unik dan aksi intens.</p>
+          <a class="btn" href="https://www.roblox.com/games/286090429/Arsenal" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="DOORS thumbnail" src="doors.jpeg">
+        <div class="content">
+          <h3 class="title">DOORS</h3>
+          <p class="desc">Horror menegangkan, temukan petunjuk dan hindari makhluk misterius.</p>
+          <a class="btn" href="https://www.roblox.com/games/6516141723/DOORS" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Jailbreak thumbnail" src="jailbreak.jpeg">
+        <div class="content">
+          <h3 class="title">Jailbreak</h3>
+          <p class="desc">Pilih jadi polisi atau penjahat, rencanakan pelarian dan aksi kejar-kejaran.</p>
+          <a class="btn" href="https://www.roblox.com/games/606849621/Jailbreak" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Natural Disaster Survival thumbnail" src="natdis.jpeg">
+        <div class="content">
+          <h3 class="title">Natural Disaster Survival</h3>
+          <p class="desc">Bertahan dari bencana acak di berbagai peta dan situasi menantang.</p>
+          <a class="btn" href="https://www.roblox.com/games/189707/Natural-Disaster-Survival" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Royale High thumbnail" src="royalehigh.jpeg">
+        <div class="content">
+          <h3 class="title">Royale High</h3>
+          <p class="desc">Sekolah fantasi, mode glamor, dan petualangan di alam kerajaan.</p>
+          <a class="btn" href="https://www.roblox.com/games/735030788/Royale-High" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Build a Boat for Treasure thumbnail" src="babft.jpeg">
+        <div class="content">
+          <h3 class="title">Build a Boat for Treasure</h3>
+          <p class="desc">Rancang kapal kreatif, jelajahi sungai berbahaya, dan raih harta karun.</p>
+          <a class="btn" href="https://www.roblox.com/games/537413528/Build-A-Boat-For-Treasure" role="button">Play Now</a>
+        </div>
+      </article>
+      <article class="card">
+        <img class="thumb" alt="Knockout! 🐧" src="knockout.jpeg">
+        <div class="content">
+          <h3 class="title">Knockout! 🐧</h3>
+          <p class="desc">Permainan peguin menantang dimana player mendorong satu sama lain tanpa mengetahui arah player lain.</p>
+          <a class="btn" href="https://www.roblox.com/games/136764190843219/Knockout" role="button">Play Now</a>
+        </div>
+      </article>
+      </article>
+    </div>
+  </main>
+  <section class="info" id="about">
+    <h2 class="section-title">About</h2>
+    <p>Halaman bertema Roblox dengan gaya futuristik ringan. Dibangun tanpa framework, fokus pada kecepatan dan kenyamanan baca.</p>
+  </section>
+  <section class="info" id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p>Ingin menambahkan fitur lain? Silakan sampaikan preferensi Anda, kami sesuaikan!</p>
+  </section>
+  <!-- Modal Iklan Game Roblox -->
+  <div id="ad-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ad-title">
+    <div class="modal-backdrop" data-close="true"></div>
+    <div class="modal-card">
+      <button class="modal-close" aria-label="Tutup" data-close="true">&times;</button>
+      <h3 id="ad-title">Rekomendasi Game Roblox</h3>
+      <p class="modal-sub">Coba yang lagi trending hari ini.</p>
+      <div class="modal-grid" id="ad-grid"></div>
+      <label class="modal-opt"><input type="checkbox" id="ad-snooze"> Jangan tampilkan lagi hari ini</label>
+    </div>
+  </div>
+  <footer class="footer">
+    <small>© 2026 InforRoblox. Semua hak cipta dilindungi.</small>
+  </footer>
+  <script>
+    ;(function(){
+      var c=document.getElementById('bg-particles');var ctx=c.getContext('2d',{alpha:true});
+      var DPR=Math.max(1,Math.min(2,window.devicePixelRatio||1));
+      var paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var w=0,h=0,particles=[];
+      function resize(){w=window.innerWidth;h=window.innerHeight;c.width=w*DPR;c.height=h*DPR;c.style.width=w+'px';c.style.height=h+'px';ctx.setTransform(DPR,0,0,DPR,0,0)}
+      function rand(min,max){return Math.random()*(max-min)+min}
+      function init(){
+        particles.length=0;
+        var count=Math.min(42,Math.max(24, Math.floor((w*h)/60000)));
+        for(var i=0;i<count;i++){
+          particles.push({x:rand(0,w),y:rand(0,h),vx:rand(-0.06,0.06),vy:rand(-0.04,0.04),r:rand(0.6,1.8),o:rand(0.25,0.6)});
+        }
+      }
+      function step(){
+        ctx.clearRect(0,0,w,h);
+        ctx.fillStyle='rgba(255,255,255,0.85)';
+        for(var i=0;i<particles.length;i++){
+          var p=particles[i];
+          p.x+=p.vx;p.y+=p.vy;
+          if(p.x<0||p.x>w)p.vx*=-1;
+          if(p.y<0||p.y>h)p.vy*=-1;
+          ctx.globalAlpha=p.o;
+          ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill();
+        }
+        ctx.globalAlpha=1;
+        if(!paused)requestAnimationFrame(step);
+      }
+      resize();init();if(!paused)step();else{ctx.clearRect(0,0,w,h);for(var i=0;i<particles.length;i++){var p=particles[i];ctx.globalAlpha=p.o;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill()}}
+      window.addEventListener('resize',function(){resize();init()},{passive:true});
+    })();
+  </script>
+  <script>
+    // Scroll spy sederhana untuk menandai link aktif
+    (function(){
+      var links=[].slice.call(document.querySelectorAll('.nav a'));
+      var map={};
+      links.forEach(function(a){ var id=(a.getAttribute('href')||'').slice(1); if(id) map[id]=a; });
+      var opts={root:null, rootMargin:'0px 0px -60% 0px', threshold:0.1};
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            var id=e.target.id; if(map[id]){
+              links.forEach(function(a){a.classList.remove('active')});
+              map[id].classList.add('active');
+            }
+          }
+        });
+      }, opts);
+      ['top','games','about','contact'].forEach(function(id){
+        var el=document.getElementById(id); if(el) obs.observe(el);
+      });
+    })();
+  </script>
+  <script>
+    // Konfigurasi iklan kustom (ditarik oleh modal iklan)
+    window.RobloxAdConfig = [
+      {
+        title: 'Teamwork Obby (2-4 Players)',
+        desc: 'Obby kerja sama 2–4 pemain; tantang koordinasi tim.',
+        href: 'https://www.roblox.com/games/116122662382220/Teamwork-Obby',
+        img: 'teamworkobby.jpeg'
+      }
+    ];
+  </script>
+  <script>
+    // Modal Iklan: tampil sekali per hari, delay singkat, aksesibilitas dasar
+    (function(){
+      var modal=document.getElementById('ad-modal');
+      if(!modal) return;
+      var grid=document.getElementById('ad-grid');
+      var closeEls=modal.querySelectorAll('[data-close="true"]');
+      var snooze=document.getElementById('ad-snooze');
+      var KEY='rp_ad_snooze_date', NEXT='rp_ad_next_ts';
+      var INITIAL_DELAY=8000; // 8 detik
+      var COOLDOWN_MS=30*60*1000; // 30 menit
+      function today(){return new Date().toISOString().slice(0,10)}
+      function isSnoozed(){try{return localStorage.getItem(KEY)===today()}catch(e){return false}}
+      function setSnooze(){try{localStorage.setItem(KEY,today())}catch(e){}}
+      function getNextTs(){try{var v=parseInt(localStorage.getItem(NEXT)||'0',10); return isNaN(v)?0:v}catch(e){return 0}}
+      function setNextTs(ts){try{localStorage.setItem(NEXT,String(ts))}catch(e){}}
+      var defaultAds=[
+        {title:'Blox Fruits', desc:'Berlayar, bertarung, dan kuasai kekuatan buah legendaris.', href:'https://www.roblox.com/games/2753915549/Blox-Fruits', img:'bloxfruit.jpeg'},
+        {title:'DOORS', desc:'Susuri lorong misterius dan hindari teror yang mengejar.', href:'https://www.roblox.com/games/6516141723/DOORS', img:'doors.jpeg'},
+        {title:'Build A Boat For Treasure', desc:'Rakit kapal terbaikmu dan taklukkan rintangan menuju harta.', href:'https://www.roblox.com/games/537413528/Build-A-Boat-For-Treasure', img:'babft.jpeg'}
+      ];
+      var ads = Array.isArray(window.RobloxAdConfig) ? window.RobloxAdConfig : defaultAds;
+      function makeCard(ad){
+        var el=document.createElement('div'); el.className='ad-card';
+        var img=document.createElement('img'); img.className='ad-thumb'; img.alt=ad.title; img.src=ad.img;
+        var box=document.createElement('div');
+        var t=document.createElement('p'); t.className='ad-title'; t.textContent=ad.title;
+        var d=document.createElement('p'); d.className='ad-desc'; d.textContent=ad.desc;
+        var a=document.createElement('a'); a.className='btn'; a.target='_blank'; a.rel='noopener'; a.href=ad.href; a.textContent='Mainkan';
+        box.appendChild(t); box.appendChild(d); box.appendChild(a);
+        el.appendChild(img); el.appendChild(box);
+        return el;
+      }
+      function renderAds(){
+        if(!grid) return;
+        grid.innerHTML='';
+        for(var i=0;i<ads.length;i++){ grid.appendChild(makeCard(ads[i])); }
+      }
+      function open(){modal.setAttribute('aria-hidden','false'); setTimeout(function(){var btn=modal.querySelector('.modal-close'); if(btn) btn.focus()}, 50)}
+      function close(){
+        modal.setAttribute('aria-hidden','true');
+        var now=Date.now();
+        if(snooze&&snooze.checked){
+          setSnooze();
+        }else{
+          setNextTs(now+COOLDOWN_MS);
+          scheduleShow(0);
+        }
+      }
+      for(var i=0;i<closeEls.length;i++){closeEls[i].addEventListener('click',close)}
+      modal.addEventListener('click',function(e){if(e.target&&e.target.dataset&&e.target.dataset.close==='true'){close()}})
+      document.addEventListener('keydown',function(e){if(e.key==='Escape'&&modal.getAttribute('aria-hidden')==='false'){close()}})
+      function scheduleShow(initialMs){
+        var now=Date.now();
+        if(isSnoozed()) return;
+        var next=getNextTs();
+        var wait=(next && next>now)?(next-now):initialMs;
+        if(wait<0) wait=0;
+        setTimeout(function(){ if(!isSnoozed()){ open(); } }, wait);
+      }
+      renderAds();
+      scheduleShow(INITIAL_DELAY);
+    })();
+  </script>
+</body>
+</html>
