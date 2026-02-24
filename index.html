@@ -500,7 +500,25 @@
     ];
   </script>
   <script>
-    // Modal Iklan: tampil sekali per hari, delay singkat, aksesibilitas dasar
+    (function(){
+      var links=[].slice.call(document.querySelectorAll('.nav a'));
+      var map={};
+      links.forEach(function(a){ var id=(a.getAttribute('href')||'').slice(1); if(id) map[id]=a; });
+      var opts={root:null, rootMargin:'0px 0px -60% 0px', threshold:0.1};
+      var obs=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            var id=e.target.id; if(map[id]){
+              links.forEach(function(a){a.classList.remove('active')});
+              map[id].classList.add('active');
+            }
+          }
+        });
+      }, opts);
+      ['top','games','about','contact'].forEach(function(id){
+        var el=document.getElementById(id); if(el) obs.observe(el);
+      });
+    })();
     (function(){
       var modal=document.getElementById('ad-modal');
       if(!modal) return;
@@ -565,6 +583,7 @@
   </script>
 </body>
 </html>
+
 
 
 
