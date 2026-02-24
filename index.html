@@ -500,20 +500,6 @@
     ];
   </script>
   <script>
-    (function(){
-      var links=[].slice.call(document.querySelectorAll('.nav a'));
-      var map={};
-      links.forEach(function(a){ var id=(a.getAttribute('href')||'').slice(1); if(id) map[id]=a; });
-      var opts={root:null, rootMargin:'0px 0px -60% 0px', threshold:0.1};
-      var obs=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){
-            var id=e.target.id; if(map[id]){
-              links.forEach(function(a){a.classList.remove('active')});
-              map[id].classList.add('active');
-            }
-          }
-        });
       }, opts);
       ['top','games','about','contact'].forEach(function(id){
         var el=document.getElementById(id); if(el) obs.observe(el);
@@ -527,7 +513,7 @@
       var snooze=document.getElementById('ad-snooze');
       var KEY='rp_ad_snooze_date', NEXT='rp_ad_next_ts';
       var INITIAL_DELAY=8000; // 8 detik
-      var COOLDOWN_MS=30*60*1000; // 30 menit
+      var COOLDOWN_MS=10*60*1000; // 30 menit
       function today(){return new Date().toISOString().slice(0,10)}
       function isSnoozed(){try{return localStorage.getItem(KEY)===today()}catch(e){return false}}
       function setSnooze(){try{localStorage.setItem(KEY,today())}catch(e){}}
@@ -583,6 +569,7 @@
   </script>
 </body>
 </html>
+
 
 
 
