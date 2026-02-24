@@ -467,22 +467,30 @@
     })();
   </script>
   <script>
-    // Scroll spy sederhana untuk menandai link aktif
-    (function(){
-      var links=[].slice.call(document.querySelectorAll('.nav a'));
-      var map={};
-      links.forEach(function(a){ var id=(a.getAttribute('href')||'').slice(1); if(id) map[id]=a; });
-      var opts={root:null, rootMargin:'0px 0px -60% 0px', threshold:0.1};
-      var obs=new IntersectionObserver(function(entries){
-        entries.forEach(function(e){
-          if(e.isIntersecting){
-            var id=e.target.id; if(map[id]){
-              links.forEach(function(a){a.classList.remove('active')});
-              map[id].classList.add('active');
-            }
+  (function(){
+    var links=[].slice.call(document.querySelectorAll('.nav a'));
+    var map={};
+    links.forEach(function(a){
+      var id=(a.getAttribute('href')||'').slice(1);
+      if(id) map[id]=a;
+    });
+    var obs=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          var id=e.target.id;
+          if(map[id]){
+            links.forEach(function(a){a.classList.remove('active')});
+            map[id].classList.add('active');
           }
-        });
-  </script>
+        }
+      });
+    }, {root:null, rootMargin:'0px 0px -60% 0px', threshold:0.1});
+    ['top','games','about','contact'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el) obs.observe(el);
+    });
+  })();
+</script>
   <script>
     // Konfigurasi iklan kustom (ditarik oleh modal iklan)
     window.RobloxAdConfig = [
@@ -564,6 +572,7 @@
   </script>
 </body>
 </html>
+
 
 
 
